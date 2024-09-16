@@ -7,7 +7,7 @@ When developing software, it's crucial to know how much of your codebase is cove
 
 ## Full Article
 
-For a detailed explanation, check out the full article: [JaCoCo Code Coverage Guide](https://dev.to/arturmkr/)
+For a detailed explanation, check out the full article: [JaCoCo Code Coverage Guide](https://dev.to/arturmkr/how-to-measure-code-coverage-in-a-running-java-application-using-jacoco-5b13)
 
 ## Usage
 
