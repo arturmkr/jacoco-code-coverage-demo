@@ -1,0 +1,66 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.2'
+    id 'io.spring.dependency-management' version '1.1.6'
+    id 'jacoco'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+//jacocoTestReport {
+//    dependsOn test
+//    reports {
+//        xml.required.set(true)
+//        csv.required.set(false)
+//        html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
+//    }
+//}
+
+jacocoTestReport {
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+        html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
+    }
+    executionData fileTree(dir: "$buildDir/jacoco", include: "*.exec")
+    sourceDirectories.setFrom(files('src/main/java'))
+    classDirectories.setFrom(files('build/classes/java/main'))
+}
+
+
+task jacocoTestReportFromExec(type: JacocoReport) {
+    executionData fileTree(dir: '.', include: '**/jacoco.exec')
+    sourceDirectories.setFrom(files('src/main/java'))
+    classDirectories.setFrom(files('build/classes/java/main'))
+
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+        html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
+    }
+}
+
+
